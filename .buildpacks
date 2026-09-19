@@ -1,0 +1,4 @@
+https://github.com/heroku/heroku-buildpack-apt
+https://github.com/heroku/heroku-buildpack-nodejs
+https://github.com/timanovsky/subdir-heroku-buildpack
+https://github.com/heroku/heroku-buildpack-go

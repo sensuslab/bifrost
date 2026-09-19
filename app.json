@@ -1,0 +1,51 @@
+{
+  "name": "bifrost",
+  "description": "Bifrost AI Gateway — Heroku buildpack deploy (apt + Node UI + Go transport)",
+  "repository": "https://github.com/sensuslab/bifrost",
+  "keywords": ["bifrost", "ai", "gateway", "llm", "heroku"],
+  "success_url": "/",
+  "stack": "heroku-24",
+  "buildpacks": [
+    { "url": "https://github.com/heroku/heroku-buildpack-apt" },
+    { "url": "https://github.com/heroku/heroku-buildpack-nodejs" },
+    { "url": "https://github.com/timanovsky/subdir-heroku-buildpack" },
+    { "url": "https://github.com/heroku/heroku-buildpack-go" }
+  ],
+  "env": {
+    "PROJECT_PATH": {
+      "description": "Subdirectory containing go.mod (required by subdir buildpack)",
+      "value": "transports"
+    },
+    "GO_INSTALL_PACKAGE_SPEC": {
+      "description": "Go package to build after PROJECT_PATH is promoted to app root",
+      "value": "./bifrost-http"
+    },
+    "CGO_ENABLED": {
+      "description": "Required for go-sqlite3",
+      "value": "1"
+    },
+    "BIFROST_HOST": {
+      "description": "Bind address for the HTTP server",
+      "value": "0.0.0.0"
+    },
+    "APP_DIR": {
+      "description": "Writable data directory for config.db / logs (ephemeral on Heroku dynos)",
+      "value": "/app/data"
+    },
+    "LOG_LEVEL": {
+      "description": "Logger level: debug, info, warn, error",
+      "value": "info"
+    },
+    "LOG_STYLE": {
+      "description": "Logger output style: json or pretty",
+      "value": "json"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": []
+}

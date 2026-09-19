@@ -1,0 +1,5 @@
+libsqlite3-dev
+gcc
+g++
+make
+pkg-config

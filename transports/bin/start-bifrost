@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Heroku web entrypoint — maps $PORT and ensures APP_DIR exists on the dyno.
+set -euo pipefail
+
+APP_DIR="${APP_DIR:-/app/data}"
+HOST="${BIFROST_HOST:-0.0.0.0}"
+PORT="${PORT:-8080}"
+LOG_LEVEL="${LOG_LEVEL:-info}"
+LOG_STYLE="${LOG_STYLE:-json}"
+
+mkdir -p "${APP_DIR}/logs"
+
+exec bin/bifrost-http \
+  -host "${HOST}" \
+  -port "${PORT}" \
+  -app-dir "${APP_DIR}" \
+  -log-level "${LOG_LEVEL}" \
+  -log-style "${LOG_STYLE}"
