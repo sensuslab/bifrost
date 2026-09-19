@@ -2,7 +2,9 @@
 
 This repo is set up for **classic Heroku buildpacks** (not the container stack).
 
-## Buildpack chain
+## Buildpack chain (required)
+
+You need **all four** buildpacks. If Heroku only detects Node.js, the Go binary never builds.
 
 Declared in `.buildpacks` / `app.json`:
 
@@ -25,6 +27,7 @@ heroku config:set \
   PROJECT_PATH=transports \
   GO_INSTALL_PACKAGE_SPEC=./bifrost-http \
   CGO_ENABLED=1 \
+  NPM_CONFIG_PRODUCTION=false \
   BIFROST_HOST=0.0.0.0 \
   APP_DIR=/app/data \
   LOG_LEVEL=info \
@@ -34,6 +37,10 @@ git push heroku dev:main   # or your deploy branch
 ```
 
 Or use the Deploy button / `app.json` defaults.
+
+### Why `NPM_CONFIG_PRODUCTION=false`?
+
+`vite` and `typescript` live in `ui` **devDependencies**. With `NODE_ENV=production`, `npm ci` skips them and `heroku-postbuild` fails with `vite: not found`. The root script also uses `npm ci --prefix ui --include=dev` as a belt-and-suspenders fix.
 
 ## Runtime notes
 

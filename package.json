@@ -7,6 +7,6 @@
     "npm": "10.x"
   },
   "scripts": {
-    "heroku-postbuild": "npm ci --prefix ui && npm run build-enterprise --prefix ui && rm -rf transports/bifrost-http/ui && mkdir -p transports/bifrost-http/ui && cp -R ui/out/. transports/bifrost-http/ui/"
+    "heroku-postbuild": "npm ci --prefix ui --include=dev && npm run build-enterprise --prefix ui && rm -rf transports/bifrost-http/ui && mkdir -p transports/bifrost-http/ui && cp -R ui/out/. transports/bifrost-http/ui/"
   }
 }

@@ -24,6 +24,10 @@
       "description": "Required for go-sqlite3",
       "value": "1"
     },
+    "NPM_CONFIG_PRODUCTION": {
+      "description": "Install UI devDependencies (vite, typescript) needed for heroku-postbuild",
+      "value": "false"
+    },
     "BIFROST_HOST": {
       "description": "Bind address for the HTTP server",
       "value": "0.0.0.0"
