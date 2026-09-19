@@ -1,0 +1,12 @@
+{
+  "name": "bifrost-heroku",
+  "private": true,
+  "description": "Root package for Heroku Node buildpack — builds the Bifrost UI before the Go binary.",
+  "engines": {
+    "node": "22.x",
+    "npm": "10.x"
+  },
+  "scripts": {
+    "heroku-postbuild": "npm ci --prefix ui && npm run build-enterprise --prefix ui && rm -rf transports/bifrost-http/ui && mkdir -p transports/bifrost-http/ui && cp -R ui/out/. transports/bifrost-http/ui/"
+  }
+}
